@@ -2,9 +2,17 @@
 using namespace std;
 int main()
 {
-    int account_number = rand() % 100000000;
-    int account_number1 = rand() % 100000000;
+Flags:
+    int c;
+    cin >> c;
+    if (c == 1)
+    {
+        cout << "Bappy" << endl;
+    }
+    else if (c == 2)
+    {
+        cout << "Imran" << endl;
+    }
 
-    cout << account_number << " = " << account_number1;
     return 0;
 }

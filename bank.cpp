@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
 using namespace std;
-// 18467
 class BankAccount
 {
 public:
@@ -69,102 +68,93 @@ int main()
     BankAccount **all_accounts = new BankAccount *[100];
     BankAccount *account;
 
-    while (command)
+Flags:
+    cout << "\n\t***ALL OPTIONS***\n\n";
+    cout << "0. Exit" << endl;
+    cout << "1. Create Account" << endl;
+    cout << "2. Show Info" << endl;
+    cout << "3. Deposit" << endl;
+    cout << "4. Withdraw" << endl;
+    cout << "Please enter : ";
+    cin >> command;
+    if (command == 0)
     {
-        switch (command)
+        return 0;
+    }
+    else if (command == 1)
+    {
+        account = (BankAccount *)create_account();
+        all_accounts[total_account] = account;
+        total_account++;
+    }
+    else if (command == 2)
+    {
+        if (total_account == 0)
         {
-            {
-            case 1:
-                cout << "\n\t***ALL OPTIONS***\n\n";
-                cout << "0. Exit" << endl;
-                cout << "1. Show All Options" << endl;
-                cout << "2. Create Account" << endl;
-                cout << "3. Show Info" << endl;
-                cout << "4. Deposit" << endl;
-                cout << "5. Withdraw" << endl;
-                cout << "Please enter : ";
-                cin >> command;
-                break;
-            case 2:
-                account = (BankAccount *)create_account();
-                all_accounts[total_account] = account;
-                total_account++;
-                command = 1;
-                break;
-            case 3:
-                if (total_account == 0)
-                {
-                    cout << "Account Not Created" << endl;
-                    command = 1;
-                    break;
-                }
-                account = (BankAccount *)find_account(all_accounts, total_account);
+            cout << "Account Not Created" << endl;
+            goto Flags;
+        }
 
-                if (account == NULL)
-                {
-                    cout << "Account Not Found" << endl;
-                    command = 1;
-                    break;
-                }
-                cout << "Enter Password: ";
-                cin >> password;
-
-                balance = account->show_balance(password);
-                cout << "\n\t***Info***\n\n";
-                cout << "Acccount No : " << account->account_number << endl;
-                cout << "Name: " << account->account_holder << endl;
-                cout << "Age: " << account->age << endl;
-                cout << "Address: " << account->address << endl;
-                if (balance == -1)
-                    cout
-                        << "Invalid password" << endl;
-                else
-                    cout << "Balance: " << balance << endl;
-                cout << "\n";
-                command = 1;
-
-                break;
-            case 4:
-                account = (BankAccount *)find_account(all_accounts, total_account);
-                cout << "Enter Amount : ";
-                cin >> balance;
-                command = 1;
-                balance = account->deposit(balance);
-                if (balance)
-                {
-                    cout << "Deposit Successful" << endl;
-                }
-                else
-                {
-                    cout << "Deposit Failed" << endl;
-                }
-                command = 1;
-
-                break;
-            case 5:
-                account = (BankAccount *)find_account(all_accounts, total_account);
-                cout << "Enter Amount : ";
-                cin >> balance;
-                command = 1;
-                balance = account->withdraw(balance);
-                if (balance)
-                {
-                    cout << "Withdraw Successful" << endl;
-                }
-                else
-                {
-                    cout << "Withdraw Failed" << endl;
-                }
-                command = 1;
-                break;
-            default:
-                cout << "Invalid command" << endl;
-                command = 1;
-                break;
-            }
+        account = (BankAccount *)find_account(all_accounts, total_account);
+        if (account == NULL)
+        {
+            cout << "Account Not Found" << endl;
+            goto Flags;
+        }
+        cout << "Enter Password: ";
+        cin >> password;
+        balance = account->show_balance(password);
+        cout << "\n\t***Info***\n\n";
+        cout << "Acccount No : " << account->account_number << endl;
+        cout << "Name: " << account->account_holder << endl;
+        cout << "Age: " << account->age << endl;
+        cout << "Address: " << account->address << endl;
+        if (balance == -1)
+            cout
+                << "Invalid password" << endl;
+        else
+            cout << "Balance: " << balance << endl;
+        cout << "\n";
+    }
+    else if (command == 3)
+    {
+        account = (BankAccount *)find_account(all_accounts, total_account);
+        cout << "Enter Amount : ";
+        cin >> balance;
+        command = 1;
+        balance = account->deposit(balance);
+        if (balance)
+        {
+            cout << "Deposit Successful" << endl;
+        }
+        else
+        {
+            cout << "Deposit Failed" << endl;
         }
     }
 
+    else if (command == 4)
+    {
+        account = (BankAccount *)find_account(all_accounts, total_account);
+        cout << "Enter Amount : ";
+        cin >> balance;
+        command = 1;
+        balance = account->withdraw(balance);
+        if (balance)
+        {
+            cout << "Withdraw Successful" << endl;
+        }
+        else
+        {
+            cout << "Withdraw Failed" << endl;
+        }
+    }
+    else
+    {
+        cout << "Invalid command" << endl;
+        command = 1;
+    }
+    goto Flags;
     return 0;
 }
 void *create_account()
